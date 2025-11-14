@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&display=swap');
+
+:root {
+  --blue: #2ab7ca;
+  --red: #fe4a49;
+  --yellow: #fed766;
+
+/*  */
+
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* font-family: "Luckiest Guy", cursive; */
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+button{
+  cursor: pointer;
+}
+
+body {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  direction: rtl;
+  overflow: hidden;
+  font-family: "Heebo", sans-serif;
+  color: rgb(20, 20, 20);
+}
+
+
+main {
+  height: 100dvh;
+  background-color: azure;
+}
+
+section {
+  max-width: 400px;
+  background-color: azure;
+  margin: auto;
+  height: 100%;
+  text-align: center;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px
+}
+
+.intro h1 {
+  font-size: 50px;
+}
+
+.intro h2 {
+  font-size: 50px;
+}
+
+.intro h2 span {
+  font-family: "Luckiest Guy", cursive;
+  letter-spacing: 4px;
+  color: var(--color-accent);
+}
+
+.intro h2 span span {
+  font-size: 30px;
+  font-weight: normal;
+}
+
+input {
+  font-size: 30px;
+  text-align: center;
+  border: none;
+  width: 80%;
+  margin: 10px auto;
+  background-color: transparent;
+  border-bottom: solid 2px silver;
+  color: var(--color-secondary);
+  font-weight: bold;
+}
+
+footer {
+  background-color: var(--color-text-bg);
+    width: 100dvw;
+  position: absolute;
+  bottom: 0;
+  padding: 10px;
+  color: white;
+
+}
+
+.intro a, footer a{
+  color: inherit;
+  /* text-decoration: none; */
+}
+
+footer a:hover {
+  color: white;
+}
+
+
+.intro h3 {
+  font-weight: 500;
+  font-size: 24px;
+}
+
+.color-set-btn {
+  border: none;
+  width: 80%;
+  aspect-ratio: 16/3;
+  margin: auto;
+  margin-bottom: 10px;
+
+}
+
+.color-set-btn.linear-right {
+  background: linear-gradient(to left,
+      var(--btn-primary),
+      var(--btn-secondary),
+      var(--btn-accent));
+}
+
+.color-set-btn.angled {
+  background: linear-gradient(-10deg,
+      var(--btn-primary),
+      var(--btn-secondary),
+      var(--btn-accent));
+}
+
+.color-set-btn.radial {
+  background: radial-gradient(circle,
+      var(--btn-primary),
+      var(--btn-secondary),
+      var(--btn-accent));
+}
+
+
+
+
+.color-set-btn:disabled {
+  cursor: not-allowed;
+  border: 2px solid var(--blue);
+}
+
+.intro-btn{
+color: white;
+  font-weight: bold;
+  text-transform: capitalize;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  width: 80%;
+  margin:0 auto;
+  padding: 10px;
+  font-size: 24px;
+  display: block;
+  background-color: var(--color-primary);
+
+  border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.intro-btn:disabled {
+  background-color: #ccc;
+  /* צבע אפור ניטרלי */
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.intro-btn:not(:disabled):hover {
+  /* נשתמש בצבע השני מהערכה */
+  background-color: var(--color-accent);
+}
