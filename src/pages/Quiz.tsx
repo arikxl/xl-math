@@ -6,11 +6,25 @@ interface QuizProps {
 }
 
 
+const operators = ['+', '-', 'x', '÷'];
 
-const operators = ['+', '-', 'x', '÷']
+const CORRECT_ANSWER_POINTS: { [key: string]: number } = {
+  '+': 1,
+  '-': 2,
+  'x': 3,
+  '÷': 4,
+};
+
+const WRONG_ANSWER_PENALTY = 1;
+
+const prizeXP = [100, 250, 555, 999, 1250, 1515, 1890, 2222, 2555, 2999, 3333, 3693, 4000, 4444, 4864, 5000, 5252, 5555, 5789, 6000, 6322, 6666, 6800, 7117, 7500, 7755, 8000];
+
+// const prizeXP=[1,5]
 
 const Quiz: React.FC<QuizProps> = ({ childName }) => {
 
+  const [isAnswering, setIsAnswering] = useState(false);
+  const [clickedWrongAnswer, setClickedWrongAnswer] = useState<number | null>(null);
 
   const [xp, setXp] = useState(() => {
     const savedXp = localStorage.getItem('XLmath-xp');
@@ -23,7 +37,7 @@ const Quiz: React.FC<QuizProps> = ({ childName }) => {
 
 
   useEffect(() => {
-    localStorage.setItem('Math-xp', xp.toString());
+    localStorage.setItem('XLmath-xp', xp.toString());
   }, [xp]);
 
 
@@ -34,17 +48,61 @@ const Quiz: React.FC<QuizProps> = ({ childName }) => {
 
 
   const handleAnswerClick = (selectedAnswer: number) => {
-    if (selectedAnswer === quiz.result) { // השתמש ב-quiz.result
-      console.log('Correct!');
-      setXp(prevXp => prevXp + 10);
+    if (isAnswering) return;
+    setIsAnswering(true);
+    if (selectedAnswer === quiz.result) {
+      // console.log('Correct!');
+      const pointsToAdd = CORRECT_ANSWER_POINTS[quiz.operator] || 1;
+      setXp(prevXp => prevXp + pointsToAdd);
     } else {
-      console.log('Wrong!');
-      setXp(prevXp => Math.max(0, prevXp - 2));
+      // console.log('Wrong!');
+      setXp(prevXp => Math.max(0, prevXp - WRONG_ANSWER_PENALTY));
+      setClickedWrongAnswer(selectedAnswer);
     }
+    setTimeout(() => {
+      setQuiz(createNewQuizQuestion(quiz.operator)); 
 
-    setQuiz(createNewQuizQuestion(quiz.operator)); 
+      setIsAnswering(false);
+      setClickedWrongAnswer(null);
+    }, 1500); 
   };
 
+  const nextCheckpoint = prizeXP.find(checkpoint => checkpoint > xp);
+
+  let prizeMessage: React.ReactNode;
+
+  if (nextCheckpoint) {
+    const pointsRemaining = nextCheckpoint - xp;
+    prizeMessage = (
+      <>
+        <h2 className='big'><span>{pointsRemaining}</span>xp</h2>
+        &nbsp;עד הפרס הבא
+      </>
+    );
+  } else {
+    prizeMessage = <h2>כל הכבוד! השגת את כל הפרסים 🏆</h2>;
+  }
+
+  const getAnswerClassName = (answer: number): string => {
+    // אם אנחנו לא במצב משוב, החזר קלאס רגיל
+    if (!isAnswering) {
+      return 'answer';
+    }
+
+    // אם אנחנו כן במצב משוב:
+    // 1. האם זו התשובה הנכונה?
+    if (answer === quiz.result) {
+      return 'answer correct'; // צבע בירוק
+    }
+
+    // 2. האם זו התשובה השגויה שנלחצה?
+    if (answer === clickedWrongAnswer) {
+      return 'answer wrong'; // צבע באדום
+    }
+
+    // 3. זו תשובה שגויה אחרת (שלא נלחצה)
+    return 'answer faded'; // נטרל / העלם
+  };
 
   return (
     <main>
@@ -71,11 +129,11 @@ const Quiz: React.FC<QuizProps> = ({ childName }) => {
         <div className='q-and-a'>
 
           <div className='question'>
-            <h3 id="num1H3">{quiz.num1}</h3>
+            <h3 >{quiz.num1}</h3>
             &nbsp;
             <h3 >{quiz.operator}</h3>
             &nbsp;
-            <h3 id="num2H3">{quiz.num2}</h3>
+            <h3>{quiz.num2}</h3>
             &nbsp;
             <h3 >=</h3>
             &nbsp;
@@ -86,7 +144,7 @@ const Quiz: React.FC<QuizProps> = ({ childName }) => {
 
             {quiz.answers.map((answer, index) => (
               <div
-                className="answer"
+                className={getAnswerClassName(answer)}
                 key={index}
                 onClick={() => handleAnswerClick(answer)}
               >
@@ -101,8 +159,7 @@ const Quiz: React.FC<QuizProps> = ({ childName }) => {
       </section>
 
       <footer className='quiz-footer'>
-        <h2><span>0</span>xp</h2>
-        &nbsp;עד הפרס הבא
+        {prizeMessage}
       </footer>
     </main>
   )
