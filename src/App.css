@@ -6,7 +6,7 @@
   --red: #fe4a49;
   --yellow: #fed766;
 
-/*  */
+  /*  */
 
 }
 
@@ -16,10 +16,10 @@
   padding: 0;
   box-sizing: border-box;
   /* font-family: "Luckiest Guy", cursive; */
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Heebo", sans-serif;
 }
 
-button{
+button {
   cursor: pointer;
 }
 
@@ -52,21 +52,24 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 30px
+  gap: 25px
 }
 
 .intro h1 {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-size: 50px;
 }
 
 .intro h2 {
   font-size: 50px;
+  margin-bottom: -20px;
 }
 
 .intro h2 span {
   font-family: "Luckiest Guy", cursive;
   letter-spacing: 4px;
   color: var(--color-accent);
+
 }
 
 .intro h2 span span {
@@ -87,16 +90,17 @@ input {
 }
 
 footer {
-  background-color: var(--color-text-bg);
-    width: 100dvw;
+  width: 100dvw;
   position: absolute;
   bottom: 0;
   padding: 10px;
-  color: white;
-
+  color: var(--color-secondary);
+  background-color: var(--color-text-bg);
+  margin-top: 20px;
 }
 
-.intro a, footer a{
+.intro a,
+footer a {
   color: inherit;
   /* text-decoration: none; */
 }
@@ -149,32 +153,163 @@ footer a:hover {
   border: 2px solid var(--blue);
 }
 
-.intro-btn{
-color: white;
+.intro-btn {
+  color: white;
   font-weight: bold;
   text-transform: capitalize;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   width: 80%;
-  margin:0 auto;
+  margin: 0 auto;
   padding: 10px;
   font-size: 24px;
   display: block;
   background-color: var(--color-primary);
 
   border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, opacity 0.3s ease;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
 }
 
 .intro-btn:disabled {
   background-color: #ccc;
-  /* צבע אפור ניטרלי */
   cursor: not-allowed;
   opacity: 0.7;
 }
 
 .intro-btn:not(:disabled):hover {
-  /* נשתמש בצבע השני מהערכה */
   background-color: var(--color-accent);
+}
+
+
+
+header {
+  background-color: var(--color-text-bg);
+  width: 100dvw;
+  padding: 10px;
+  color: white;
+
+}
+
+nav {
+  display: flex;
+  max-width: 400px;
+  align-items: center;
+  margin: auto;
+  justify-content: space-between;
+  /* background-color: #fe4a49; */
+  padding: 0 20px;
+
+}
+
+
+nav h2,
+.quiz-footer h2 span {
+  font-family: "Luckiest Guy", cursive;
+  color: var(--color-secondary);
+  font-weight: 500;
+}
+
+nav h2 span,
+.quiz-footer h2 {
+  font-family: "Luckiest Guy", cursive;
+  color: white;
+  margin-left: 4px;
+  font-weight: 200;
+
+}
+
+.quiz-footer {
+  padding: 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: white;
+}
+
+.operators {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  gap: 5px;
+  flex-direction: row-reverse;
+}
+
+li {
+  font-family: "Luckiest Guy", cursive;
+  flex: 1;
+  background-color:rgb(51 65 85) ;
+  background-color:gray;
+  color: white;
+  text-align: center;
+  font-size: 35px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.q-and-a{
+  /* background-color: #fe4a49; */
+  height: 100%;
+}
+
+.question{
+  height: 50%;
+  /* background-color: #fed766; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  flex-direction: row-reverse;
+  font-size: 70px;
+}
+
+.question h3{
+  font-family: "Luckiest Guy", cursive;
+  letter-spacing: 4px;
+  font-weight: 100;
+}
+.question h3:nth-child(5) {
+  color: gray;
+}
+
+
+
+
+.answers {
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  margin: 0 auto 10px;
+}
+
+.answer {
+  font-family: "Luckiest Guy", cursive;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1/1;
+  font-size: 50px;
+  cursor: pointer;
+  color: white;
+  transition: 1s;
+  /* background-color: #fe4a49; */
+}
+
+.answer:nth-child(1) {
+  background-color: var(--color-primary);
+}
+.answer:nth-child(2) {
+  background-color: var(--color-accent);
+}
+.answer:nth-child(3) {
+  /* background-color: var(--color-secondary); */
+  background: radial-gradient(circle,
+            var(--color-primary),
+          var(--color-accent),
+          var(--color-secondary));
 }

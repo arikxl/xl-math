@@ -1,25 +1,26 @@
 import { useState } from 'react'
 
 import './App.css'
-import Quiz from './pages/quiz';
+import Quiz from './pages/Quiz';
 import Intro from './pages/Intro';
+import ThemeLoader from './components/ThemeLoader';
 
 function App() {
-  const [childName, setChildName] = useState(localStorage.getItem('mathXL-child') || '');
+  const [childName, setChildName] = useState(localStorage.getItem('XLmath-child') || '');
 
 
 
   return (
-    <>
-
+    <div>
+      <ThemeLoader />
       {
         childName
-          ? (<Quiz />)
-          : (<Intro setChildName={setChildName } />)
+          ? (<Quiz childName={childName } />)
+          : (<Intro setChildName={setChildName}  />)
       }
 
 
-    </>
+    </div>
   )
 }
 

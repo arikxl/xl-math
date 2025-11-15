@@ -14,7 +14,7 @@ export interface Themes {
 }
 
 export const themes: Themes = {
-    sunset: { 
+    forest: { 
         primary: '#3EB489',
         secondary: '#98FF98',
         accent: '#20B2AA',
@@ -23,16 +23,16 @@ export const themes: Themes = {
     },
     normal: {
         primary: '#2ab7ca',
-        secondary: '#fe4a49',
-        accent: '#fed766',
-        textBg: '#9c0d0dff',
+        secondary: '#fed766',
+        accent: '#fe4a49',
+        textBg: '#630303ff',
         gradientType: 'linear-right',
     },
     cyberNight: {
-        primary: '#0D0221',
+        primary: '#4B0082',
         secondary: '#00F0FF',
         accent: '#FF00F5',
-        textBg: '#4B0082',
+        textBg: '#0D0221',
         gradientType: 'radial',
     },
 };
