@@ -1,46 +1,99 @@
-import React from 'react'
-// import ThemeSwitcher from './ThemeSwitcher';
+import React, { useEffect, useState } from 'react'
+import { createNewQuizQuestion, type QuizData } from '../service/createEx';
 
 interface QuizProps {
   childName: string;
 }
 
+
+
+const operators = ['+', '-', 'x', '÷']
+
 const Quiz: React.FC<QuizProps> = ({ childName }) => {
+
+
+  const [xp, setXp] = useState(() => {
+    const savedXp = localStorage.getItem('XLmath-xp');
+    return savedXp ? +savedXp : 0;
+  });
+
+  const [quiz, setQuiz] = useState<QuizData>(() => {
+    return createNewQuizQuestion('+');
+  });
+
+
+  useEffect(() => {
+    localStorage.setItem('Math-xp', xp.toString());
+  }, [xp]);
+
+
+
+  const handleOperatorChange = (newOperator: string) => {
+    setQuiz(createNewQuizQuestion(newOperator));
+  };
+
+
+  const handleAnswerClick = (selectedAnswer: number) => {
+    if (selectedAnswer === quiz.result) { // השתמש ב-quiz.result
+      console.log('Correct!');
+      setXp(prevXp => prevXp + 10);
+    } else {
+      console.log('Wrong!');
+      setXp(prevXp => Math.max(0, prevXp - 2));
+    }
+
+    setQuiz(createNewQuizQuestion(quiz.operator)); 
+  };
+
+
   return (
     <main>
-      {/* <ThemeSwitcher /> */}
       <header>
         <nav>
           <h1>
             {childName}
           </h1>
-          <h2>0<span>XP</span></h2>
+          <h2>{xp}<span>XP</span></h2>
         </nav>
       </header>
 
       <section className='quiz'>
         <ul className="operators">
-          <li >+</li>
-          <li >-</li>
-          <li >x</li>
-          <li >÷</li>
+          {
+            operators.map((op) => (
+              <li key={op} onClick={() => handleOperatorChange(op)}
+                className={quiz.operator === op ? 'active' : ''}
+              >{op}</li>
+            ))
+          }
         </ul>
 
         <div className='q-and-a'>
 
-        <div className='question'>
-          <h3 id="num1H3">22</h3>
-          <h3 id="operatorH3">+</h3>
-          <h3 id="num2H3">44</h3>
-          <h3 >=</h3>
-          <h3>?</h3>
-        </div>
+          <div className='question'>
+            <h3 id="num1H3">{quiz.num1}</h3>
+            &nbsp;
+            <h3 >{quiz.operator}</h3>
+            &nbsp;
+            <h3 id="num2H3">{quiz.num2}</h3>
+            &nbsp;
+            <h3 >=</h3>
+            &nbsp;
+            <h3>?</h3>
+          </div>
 
-        <div className='answers'>
-            <div className="answer" id="option1" >22</div>
-            <div className="answer" id="option2" >33</div>
-            <div className="answer" id="option3" >44</div>
-        </div>
+          <div className='answers'>
+
+            {quiz.answers.map((answer, index) => (
+              <div
+                className="answer"
+                key={index}
+                onClick={() => handleAnswerClick(answer)}
+              >
+                {answer}
+              </div>
+            ))}
+          </div>
 
         </div>
 

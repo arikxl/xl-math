@@ -307,9 +307,12 @@ li {
   background-color: var(--color-accent);
 }
 .answer:nth-child(3) {
-  /* background-color: var(--color-secondary); */
-  background: radial-gradient(circle,
-            var(--color-primary),
-          var(--color-accent),
-          var(--color-secondary));
+  background-color: var(--color-secondary);
+}
+
+.active{
+    background: radial-gradient(circle,
+          var(--color-primary),
+          var(--color-secondary),
+          var(--color-accent));
 }
