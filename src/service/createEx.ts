@@ -35,13 +35,13 @@ const generateExercise = (operator: string): Exercise => {
     switch (operator) {
         case '+': {
             const num1 = getRandomNumber(1, 100);
-            const num2 = getRandomNumber(1, 100);
+            const num2 = getRandomNumber(1, 80);
             return { num1, num2, result: num1 + num2 };
         }
 
         case '-': {
             let num1 = getRandomNumber(1, 100);
-            let num2 = getRandomNumber(1, 100);
+            let num2 = getRandomNumber(1, 80);
 
             if (num1 < num2) {
                 [num1, num2] = [num2, num1];
