@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { createNewQuizQuestion, type QuizData } from '../service/createEx';
 import QuizFooter from '../components/QuizFooter';
+import { prizeXP } from '../service/data';
 
 interface QuizProps {
   childName: string;
@@ -22,6 +23,8 @@ const Quiz: React.FC<QuizProps> = ({ childName }) => {
   const [isAnswering, setIsAnswering] = useState(false);
   const [clickedWrongAnswer, setClickedWrongAnswer] = useState<number | null>(null);
 
+  const [showPrizeModal, setShowPrizeModal] = useState(false);
+
   const [xp, setXp] = useState(() => {
     const savedXp = localStorage.getItem('XLmath-xp');
     return savedXp ? +savedXp : 0;
@@ -38,6 +41,7 @@ const Quiz: React.FC<QuizProps> = ({ childName }) => {
   const handleOperatorChange = (newOperator: string) => {
     setQuiz(createNewQuizQuestion(newOperator));
   };
+  
 
   const handleAnswerClick = (selectedAnswer: number) => {
     if (isAnswering) return;
@@ -45,7 +49,18 @@ const Quiz: React.FC<QuizProps> = ({ childName }) => {
 
     if (selectedAnswer === quiz.result) {
       const pointsToAdd = CORRECT_ANSWER_POINTS[quiz.operator] || 1;
-      setXp(prevXp => prevXp + pointsToAdd);
+
+      setXp(prevXp => {
+        const newXp = prevXp + pointsToAdd;
+
+        const reachedPrize = prizeXP.some(prize => prevXp < prize && newXp >= prize);
+        if (reachedPrize) {
+          setShowPrizeModal(true); 
+        }
+
+        return newXp;
+      });
+
     } else {
       setXp(prevXp => Math.max(0, prevXp - WRONG_ANSWER_PENALTY));
       setClickedWrongAnswer(selectedAnswer);
@@ -67,6 +82,20 @@ const Quiz: React.FC<QuizProps> = ({ childName }) => {
 
   return (
     <main>
+
+      {showPrizeModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <div className="modal-icon">🎁</div>
+            <h2>כל הכבוד {childName}!</h2>
+            <p>הגעת ליעד חדש! 🎉</p>
+            <p className="prize-instruction">גשו לאמא או אבא לקבלת הפרס</p>
+            <button onClick={() => setShowPrizeModal(false)}>לא לשכוח להגיד תודה</button>
+          </div>
+        </div>
+      )}
+
+
       <header>
         <nav>
           <button>⚙️</button>

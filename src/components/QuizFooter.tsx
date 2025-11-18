@@ -1,14 +1,11 @@
 import React from 'react';
+import { prizeXP } from '../service/data';
 
 interface QuizFooterProps {
     xp: number;
 }
 
-const prizeXP = [
-    100, 250, 555, 999, 1250, 1515, 1890, 2222, 2555, 2999, 3333,
-    3693, 4000, 4444, 4864, 5000, 5252, 5555, 5789, 6000, 6322,
-    6666, 6800, 7117, 7500, 7755, 8000
-];
+
 
 const QuizFooter: React.FC<QuizFooterProps> = ({ xp }) => {
 
