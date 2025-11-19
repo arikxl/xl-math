@@ -4,6 +4,8 @@ import './App.css'
 import Quiz from './pages/Quiz';
 import Intro from './pages/Intro';
 import ThemeLoader from './components/ThemeLoader';
+import { Analytics } from "@vercel/analytics/next"
+
 
 function App() {
   const [childName, setChildName] = useState(localStorage.getItem('XLmath-child') || '');
@@ -12,6 +14,7 @@ function App() {
 
   return (
     <div>
+      {/* <Analytics /> */}
       <ThemeLoader />
       {
         childName
