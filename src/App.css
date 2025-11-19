@@ -52,29 +52,29 @@ section {
 .intro {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   gap: 25px
 }
 
-.intro h1 {
+/* .intro h1 {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-size: 50px;
+} */
+
+.intro h1 {
+  font-size: 80px;
+  margin-bottom: -30px;
 }
 
-.intro h2 {
-  font-size: 50px;
-  margin-bottom: -20px;
-}
-
-.intro h2 span {
+.intro h1 span {
   font-family: "Luckiest Guy", cursive;
   letter-spacing: 4px;
   color: var(--color-accent);
 
 }
 
-.intro h2 span span {
-  font-size: 30px;
+.intro h1 span span {
+  font-size: 50px;
   font-weight: normal;
 }
 
@@ -217,7 +217,13 @@ nav h2 span,
   color: white;
   margin-left: 4px;
   font-weight: 200;
-  
+
+}
+
+nav button {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
 }
 
 .quiz-footer {
@@ -232,16 +238,16 @@ nav h2 span,
 
 
 
-.quiz-footer h2{
+.quiz-footer h2 {
   font-family: "Heebo", sans-serif;
-  
+
 }
 
-footer .big{
+footer .big {
   font-family: "Luckiest Guy", cursive;
 }
 
-.footer-text{
+.footer-text {
   width: 100%;
   /* background-color: #F44336; */
   display: flex;
@@ -261,8 +267,8 @@ footer .big{
 li {
   font-family: "Luckiest Guy", cursive;
   flex: 1;
-  background-color:rgb(51 65 85) ;
-  background-color:gray;
+  background-color: rgb(51 65 85);
+  background-color: gray;
   color: white;
   text-align: center;
   font-size: 35px;
@@ -270,12 +276,12 @@ li {
   cursor: pointer;
 }
 
-.q-and-a{
+.q-and-a {
   /* background-color: #fe4a49; */
   height: 100%;
 }
 
-.question{
+.question {
   height: 50%;
   /* background-color: #fed766; */
   display: flex;
@@ -286,11 +292,12 @@ li {
   font-size: 50px;
 }
 
-.question h3{
+.question h3 {
   font-family: "Luckiest Guy", cursive;
   letter-spacing: 4px;
   font-weight: 100;
 }
+
 .question h3:nth-child(5) {
   color: gray;
 }
@@ -324,18 +331,20 @@ li {
 .answer:nth-child(1) {
   background-color: var(--color-primary);
 }
+
 .answer:nth-child(2) {
   background-color: var(--color-accent);
 }
+
 .answer:nth-child(3) {
   background-color: var(--color-secondary);
 }
 
-.active{
-    background: radial-gradient(circle,
-          var(--color-primary),
-          var(--color-secondary),
-          var(--color-accent));
+.active {
+  background: radial-gradient(circle,
+      var(--color-primary),
+      var(--color-secondary),
+      var(--color-accent));
 }
 
 
@@ -493,4 +502,50 @@ li {
     transform: scale(1);
     opacity: 1;
   }
+}
+
+
+.settings-btn {
+  width: 80%;
+  background-color: var(--color-primary) !important;
+  margin-bottom: 10px;
+}
+
+.settings-btn:last-child {
+  background-color: var(--color-text-bg) !important;
+}
+
+
+hr {
+  margin: 20px;
+}
+
+
+.checkbox-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  padding: 5px;
+  width: 80%;
+  margin:0 auto;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+  margin-top: 5px;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.checkbox-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.no-pad{
+  padding: 0;
 }

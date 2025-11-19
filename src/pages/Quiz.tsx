@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { createNewQuizQuestion, type QuizData } from '../service/createEx';
 import QuizFooter from '../components/QuizFooter';
 import { prizeXP } from '../service/data';
+import Settings from '../components/Settings';
 
 interface QuizProps {
   childName: string;
+    setChildName: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const operators = ['+', '-', 'x', '÷'];
@@ -18,12 +20,13 @@ const CORRECT_ANSWER_POINTS: { [key: string]: number } = {
 
 const WRONG_ANSWER_PENALTY = 1;
 
-const Quiz: React.FC<QuizProps> = ({ childName }) => {
+const Quiz: React.FC<QuizProps> = ({ childName, setChildName }) => {
 
   const [isAnswering, setIsAnswering] = useState(false);
   const [clickedWrongAnswer, setClickedWrongAnswer] = useState<number | null>(null);
 
   const [showPrizeModal, setShowPrizeModal] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
 
   const [xp, setXp] = useState(() => {
     const savedXp = localStorage.getItem('XLmath-xp');
@@ -94,11 +97,14 @@ const Quiz: React.FC<QuizProps> = ({ childName }) => {
           </div>
         </div>
       )}
+      {showSettingsModal && (
+        <Settings setChildName={setChildName } setShowSettingsModal={setShowSettingsModal } />
+      )}
 
 
       <header>
         <nav>
-          <button>⚙️</button>
+          <button onClick={() => setShowSettingsModal(true)}>⚙️</button>
           <h1>{childName}</h1>
           <h2>{xp}<span>XP</span></h2>
         </nav>

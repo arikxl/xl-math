@@ -5,11 +5,12 @@ interface IntroProps {
     setChildName: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const STORAGE_KEY = 'color-theme';
+export const STORAGE_KEY = 'color-theme';
 
 const Intro: React.FC<IntroProps> = ({ setChildName }) => {
 
     const [localName, setLocalName] = useState('');
+    const [isAgreed, setIsAgreed] = useState(false);
 
     const [currentThemeKey, setCurrentThemeKey] = useState<string | null>(() => {
         return localStorage.getItem(STORAGE_KEY);
@@ -50,13 +51,9 @@ const Intro: React.FC<IntroProps> = ({ setChildName }) => {
             <section className='intro'>
 
                 <div>
-                    <h1 className='intro-h1'>
-                        ברוכים הבאים
-                    </h1>
-                    <h2>
-                        ל
+                    <h1>
                         <span>XL<span>Math</span></span>
-                    </h2>
+                    </h1>
                     by&nbsp;
                     <a target='blank' href='https://github.com/arikxl'>
                         arikxl
@@ -96,9 +93,21 @@ const Intro: React.FC<IntroProps> = ({ setChildName }) => {
                 </div>
 
 
+                {/* <div className=""> */}
+                    <label className="checkbox-wrapper">
+                    <input type="checkbox" checked={isAgreed}
+                        onChange={(e) => setIsAgreed(e.target.checked)} />
+                        <span className="checkbox-text">
+                            מובן לי שהאתר משמש ללמידה ולמשחק בלבד, וכל פרס הוא בונוס שניתן על ידי ההורים.
+
+                        </span>
+                    </label>
+                {/* </div> */}
+
+
                 <button className='intro-btn'
                     onClick={handleStart}
-                    disabled={!currentThemeKey || localName.trim() === ''}>
+                    disabled={!currentThemeKey || localName.trim() === '' || !isAgreed}>
                     בואו נתחיל
                 </button>
 

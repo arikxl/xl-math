@@ -15,7 +15,7 @@ function App() {
       <ThemeLoader />
       {
         childName
-          ? (<Quiz childName={childName } />)
+          ? (<Quiz childName={childName} setChildName={setChildName} />)
           : (<Intro setChildName={setChildName}  />)
       }
 
