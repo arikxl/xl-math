@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-# Optional: אם יש לך מפת אתר, תוסיף את השורה הבאה (אם אין, תמחק אותה)
-# Sitemap: https://www.your-domain.com/sitemap.xml
+# Sitemap: https://xl-math-yehonathan.vercel.app/sitemap.xml
