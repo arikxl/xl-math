@@ -3,8 +3,8 @@ import { useState } from 'react'
 import './App.css'
 import Quiz from './pages/Quiz';
 import Intro from './pages/Intro';
-import ThemeLoader from './components/ThemeLoader';
-import { Analytics } from "@vercel/analytics/next"
+// import ThemeLoader from './components/ThemeLoader';
+// import { Analytics } from "@vercel/analytics/next"
 
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
   return (
     <div>
       {/* <Analytics /> */}
-      <ThemeLoader />
+      {/* <ThemeLoader /> */}
       {
         childName
           ? (<Quiz childName={childName} setChildName={setChildName} />)
