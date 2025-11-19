@@ -92,7 +92,7 @@ const Quiz: React.FC<QuizProps> = ({ childName, setChildName }) => {
             <div className="modal-icon">🎁</div>
             <h2>כל הכבוד {childName}!</h2>
             <p>הגעת ליעד חדש! 🎉</p>
-            <p className="prize-instruction">גשו לאמא או אבא לקבלת הפרס</p>
+            <p className="prize-instruction">גשו לאמא/אבא לקבלת הפרס</p>
             <button onClick={() => setShowPrizeModal(false)}>לא לשכוח להגיד תודה</button>
           </div>
         </div>
