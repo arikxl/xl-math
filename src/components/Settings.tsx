@@ -23,7 +23,7 @@ const Settings = ({ setShowSettingsModal, setChildName }: SettingsProps) => {
         const trimmedName = localName?.trim();
         if (trimmedName) {
             setChildName(trimmedName)
-            // localStorage.setItem('XLmath-child', trimmedName);
+            localStorage.setItem('XLmath-child', trimmedName);
         }
 
         setShowSettingsModal(false)
@@ -46,12 +46,13 @@ const Settings = ({ setShowSettingsModal, setChildName }: SettingsProps) => {
     };
 
 
-    const reaetAll = () => {
+    const resetAll = () => {
         if (window.confirm('האם אתם בטוחים שאתם רוצים למחוק את כל ההתקדמות?')) {
 
             localStorage.removeItem('XLmath-child');
             localStorage.removeItem('XLmath-xp');
             localStorage.removeItem('color-theme');
+            localStorage.removeItem('XLmath-maxXp');
             setShowSettingsModal(false);
             window.location.reload();
         }
@@ -105,7 +106,7 @@ const Settings = ({ setShowSettingsModal, setChildName }: SettingsProps) => {
                 <hr />
        
                 <p>אם אתם רוצים להתחיל את הכל מההתחלה ושכל המידע ימחק, תלחצו כאן:</p>
-                <button className='settings-btn' onClick={reaetAll}>איפוס מוחלט</button>
+                <button className='settings-btn' onClick={resetAll}>איפוס מוחלט</button>
             </div>
         </div>
     )

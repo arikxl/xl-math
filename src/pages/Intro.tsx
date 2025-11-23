@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // 1. לא לשכוח להוסיף useEffect
 import { themes, type ColorTheme } from '../themes';
 
 interface IntroProps {
@@ -12,11 +12,27 @@ const Intro: React.FC<IntroProps> = ({ setChildName }) => {
     const [localName, setLocalName] = useState('');
     const [isAgreed, setIsAgreed] = useState(false);
 
+    // טעינת המפתח מהזיכרון
     const [currentThemeKey, setCurrentThemeKey] = useState<string | null>(() => {
         return localStorage.getItem(STORAGE_KEY);
-
-
     });
+
+    // 2. התיקון הגדול: אפקט שמעדכן את ה-CSS בכל פעם שה-Theme משתנה (וגם בהתחלה)
+    useEffect(() => {
+        if (currentThemeKey && themes[currentThemeKey]) {
+            const theme: ColorTheme = themes[currentThemeKey];
+            const root = document.documentElement;
+
+            root.style.setProperty('--color-primary', theme.primary);
+            root.style.setProperty('--color-secondary', theme.secondary);
+            root.style.setProperty('--color-accent', theme.accent);
+            root.style.setProperty('--color-text-bg', theme.textBg);
+
+            // עדכון הזיכרון (כדי שיהיה מסודר, גם אם בחרנו מחדש)
+            localStorage.setItem(STORAGE_KEY, currentThemeKey);
+        }
+    }, [currentThemeKey]);
+
 
     const handleStart = () => {
         const trimmedName = localName.trim();
@@ -26,30 +42,17 @@ const Intro: React.FC<IntroProps> = ({ setChildName }) => {
         }
     };
 
-
+    // 3. הפונקציה הזו הופכת להיות הרבה יותר פשוטה - רק מעדכנת את ה-State
     const selectTheme = (themeKey: string) => {
         if (themes[themeKey]) {
             setCurrentThemeKey(themeKey);
+            // ה-useEffect למעלה כבר יעשה את שאר העבודה (עדכון CSS + שמירה בזיכרון)
         }
-
-        const theme: ColorTheme = themes[themeKey];
-        const root = document.documentElement;
-
-        root.style.setProperty('--color-primary', theme.primary);
-        root.style.setProperty('--color-secondary', theme.secondary);
-        root.style.setProperty('--color-accent', theme.accent);
-        root.style.setProperty('--color-text-bg', theme.textBg);
-
-        localStorage.setItem(STORAGE_KEY, themeKey);
     };
-
-
 
     return (
         <main>
-
             <section className='intro'>
-
                 <div>
                     <h1>
                         <span>XL<span>Math</span></span>
@@ -60,57 +63,47 @@ const Intro: React.FC<IntroProps> = ({ setChildName }) => {
                     </a>
                 </div>
 
-
-
-
                 <input placeholder='שם הילד/ה'
                     value={localName}
                     onChange={(e) => setLocalName(e.target.value)}
                 />
 
-
                 <div>
                     <h3>בחרו עיצוב</h3>
                     {Object.keys(themes).map((themeKey) => {
                         const theme = themes[themeKey];
-
                         return (
                             <button
                                 className={`color-set-btn ${theme.gradientType}`}
                                 key={themeKey}
                                 onClick={() => selectTheme(themeKey)}
-                                disabled={currentThemeKey === themeKey}
+                                // הוספתי סימון ויזואלי לכפתור הנבחר
                                 style={{
                                     '--btn-primary': theme.primary,
                                     '--btn-secondary': theme.secondary,
-                                    '--btn-accent': theme.accent
+                                    '--btn-accent': theme.accent,
+                                    border: currentThemeKey === themeKey ? '3px solid white' : 'none',
+                                    outline: currentThemeKey === themeKey ? `3px solid ${theme.primary}` : 'none'
                                 } as React.CSSProperties}
                             >
-
                             </button>
                         );
                     })}
                 </div>
 
-
-                {/* <div className=""> */}
-                    <label className="checkbox-wrapper">
+                <label className="checkbox-wrapper">
                     <input type="checkbox" checked={isAgreed}
                         onChange={(e) => setIsAgreed(e.target.checked)} />
-                        <span className="checkbox-text">
-                            מובן לי שהאתר משמש ללמידה ולמשחק בלבד, וכל פרס הוא בונוס שניתן על ידי ההורים.
-
-                        </span>
-                    </label>
-                {/* </div> */}
-
+                    <span className="checkbox-text">
+                        מובן לי שהאתר משמש ללמידה ולמשחק בלבד, וכל פרס הוא בונוס שניתן על ידי ההורים.
+                    </span>
+                </label>
 
                 <button className='intro-btn'
                     onClick={handleStart}
                     disabled={!currentThemeKey || localName.trim() === '' || !isAgreed}>
                     בואו נתחיל
                 </button>
-
 
             </section>
 
@@ -121,12 +114,8 @@ const Intro: React.FC<IntroProps> = ({ setChildName }) => {
                 </a>
                 &nbsp;- ISRAEL 2025
             </footer>
-
-
-
-
         </main>
     )
 }
 
-export default Intro
+export default Intro;

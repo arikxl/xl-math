@@ -33,6 +33,12 @@ const Quiz: React.FC<QuizProps> = ({ childName, setChildName }) => {
     return savedXp ? +savedXp : 0;
   });
 
+  const [maxXp, setMaxXp] = useState(() => {
+    const savedMax = localStorage.getItem('XLmath-maxXp');
+    const currentXp = localStorage.getItem('XLmath-xp');
+    return savedMax ? +savedMax : (currentXp ? +currentXp : 0);
+  });
+
   const [quiz, setQuiz] = useState<QuizData>(() => {
     return createNewQuizQuestion('+');
   });
@@ -40,6 +46,10 @@ const Quiz: React.FC<QuizProps> = ({ childName, setChildName }) => {
   useEffect(() => {
     localStorage.setItem('XLmath-xp', xp.toString());
   }, [xp]);
+
+  useEffect(() => {
+    localStorage.setItem('XLmath-maxXp', maxXp.toString());
+  }, [maxXp]);
 
   const handleOperatorChange = (newOperator: string) => {
     setQuiz(createNewQuizQuestion(newOperator));
@@ -53,20 +63,35 @@ const Quiz: React.FC<QuizProps> = ({ childName, setChildName }) => {
     if (selectedAnswer === quiz.result) {
       const pointsToAdd = CORRECT_ANSWER_POINTS[quiz.operator] || 1;
 
-      setXp(prevXp => {
-        const newXp = prevXp + pointsToAdd;
+      // חישוב העתיד - כמה נקודות יהיו לי עכשיו
+      const newXp = xp + pointsToAdd;
 
-        const reachedPrize = prizeXP.some(prize => prevXp < prize && newXp >= prize);
-        if (reachedPrize) {
-          setShowPrizeModal(true); 
-        }
+      // התיקון: בדיקה האם חצינו פרס, והאם הפרס הזה חדש לנו (גדול מהשיא הקודם)
+      const reachedNewPrize = prizeXP.some(prize =>
+        xp < prize &&       // היינו מתחת לפרס
+        newXp >= prize &&   // עכשיו עברנו אותו
+        prize > maxXp       // וחשוב מאוד: הפרס הזה נמצא מעל השיא הקודם שלנו
+      );
 
-        return newXp;
-      });
+      if (reachedNewPrize) {
+        setShowPrizeModal(true);
+      }
+
+      // עדכון הניקוד
+      setXp(newXp);
+
+      // עדכון השיא המקסימלי אם שברנו אותו
+      if (newXp > maxXp) {
+        setMaxXp(newXp);
+      }
 
     } else {
+      // תשובה לא נכונה
       setXp(prevXp => Math.max(0, prevXp - WRONG_ANSWER_PENALTY));
       setClickedWrongAnswer(selectedAnswer);
+
+      // שים לב: אנחנו לא מורידים את ה-maxXp! 
+      // השיא נשאר כדי למנוע קבלת פרס כפולה אם הילד יורד ועולה חזרה
     }
 
     setTimeout(() => {
@@ -92,7 +117,7 @@ const Quiz: React.FC<QuizProps> = ({ childName, setChildName }) => {
             <div className="modal-icon">🎁</div>
             <h2>כל הכבוד {childName}!</h2>
             <p>הגעת ליעד חדש! 🎉</p>
-            <p className="prize-instruction">גשו לאמא/אבא לקבלת הפרס</p>
+            <p className="prize-instruction">גשו לאמא או לאבא לקבל את הפרס</p>
             <button onClick={() => setShowPrizeModal(false)}>לא לשכוח להגיד תודה</button>
           </div>
         </div>
@@ -142,7 +167,7 @@ const Quiz: React.FC<QuizProps> = ({ childName, setChildName }) => {
         </div>
       </section>
 
-      <QuizFooter xp={xp} />
+      <QuizFooter xp={xp} maxXp={maxXp} />
 
     </main>
   )

@@ -37,4 +37,4 @@ export const themes: Themes = {
     },
 };
 
-export const DEFAULT_THEME = 'sunset';
+export const DEFAULT_THEME = 'normal';
