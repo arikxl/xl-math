@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-// import { Analytics } from "@vercel/analytics/next"
 
 import "./styles/global.css";
 import Quiz from './pages/Quiz';
@@ -30,7 +29,6 @@ function App() {
 
   return (
     <div>
-      {/* <Analytics /> */}
       {childName ? (
         <Quiz childName={childName} setChildName={setChildName} />
       ) : (

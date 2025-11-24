@@ -1,9 +1,12 @@
-// import { StrictMode } from 'react'
+import { StrictMode } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { createRoot } from 'react-dom/client'
+
 import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
-  // <StrictMode>
+  <StrictMode>
     <App />
-  // {/* </StrictMode>, */}
+    <Analytics />
+   </StrictMode>,
 )
