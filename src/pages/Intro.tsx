@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react'; // 1. לא לשכוח להוסיף useEffect
-import { themes, type ColorTheme } from '../themes';
 
 import "../styles/intro.css";
+import { useTheme } from '../service/useTheme';
+import { themes, type ColorTheme } from '../themes';
+import { STORAGE_KEYS } from '../service/constants';
+
+
 
 interface IntroProps {
     setChildName: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const STORAGE_KEY = 'color-theme';
 
 const Intro: React.FC<IntroProps> = ({ setChildName }) => {
 
     const [localName, setLocalName] = useState('');
     const [isAgreed, setIsAgreed] = useState(false);
-
-    const [currentThemeKey, setCurrentThemeKey] = useState<string | null>(() => {
-        return localStorage.getItem(STORAGE_KEY);
-    });
+    const { currentThemeKey, setCurrentThemeKey } = useTheme();
 
     useEffect(() => {
         if (currentThemeKey && themes[currentThemeKey]) {
@@ -28,7 +28,7 @@ const Intro: React.FC<IntroProps> = ({ setChildName }) => {
             root.style.setProperty('--color-accent', theme.accent);
             root.style.setProperty('--color-text-bg', theme.textBg);
 
-            localStorage.setItem(STORAGE_KEY, currentThemeKey);
+            localStorage.setItem(STORAGE_KEYS.THEME, currentThemeKey);
         }
     }, [currentThemeKey]);
 
@@ -36,15 +36,13 @@ const Intro: React.FC<IntroProps> = ({ setChildName }) => {
     const handleStart = () => {
         const trimmedName = localName.trim();
         if (trimmedName) {
-            localStorage.setItem('XLmath-child', trimmedName);
+            localStorage.setItem(STORAGE_KEYS.CHILD_NAME, trimmedName);
             setChildName(trimmedName);
         }
     };
 
     const selectTheme = (themeKey: string) => {
-        if (themes[themeKey]) {
-            setCurrentThemeKey(themeKey);
-        }
+        setCurrentThemeKey(themeKey);
     };
 
     return (

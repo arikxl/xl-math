@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { createNewQuizQuestion, type QuizData } from '../service/createEx';
+
+import Settings from '../components/Settings';
 import QuizFooter from '../components/QuizFooter';
 import { prizeXP } from '../service/data';
-import Settings from '../components/Settings';
+import { STORAGE_KEYS } from '../service/constants';
+import { createNewQuizQuestion, type QuizData } from '../service/createEx';
 
 
 import "../styles/quiz.css";
@@ -33,13 +35,13 @@ const Quiz: React.FC<QuizProps> = ({ childName, setChildName }) => {
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
   const [xp, setXp] = useState(() => {
-    const savedXp = localStorage.getItem('XLmath-xp');
+    const savedXp = localStorage.getItem(STORAGE_KEYS.XP);
     return savedXp ? +savedXp : 0;
   });
 
   const [maxXp, setMaxXp] = useState(() => {
-    const savedMax = localStorage.getItem('XLmath-maxXp');
-    const currentXp = localStorage.getItem('XLmath-xp');
+    const savedMax = localStorage.getItem(STORAGE_KEYS.MAX_XP);
+    const currentXp = localStorage.getItem(STORAGE_KEYS.XP);
     return savedMax ? +savedMax : (currentXp ? +currentXp : 0);
   });
 
@@ -48,11 +50,11 @@ const Quiz: React.FC<QuizProps> = ({ childName, setChildName }) => {
   });
 
   useEffect(() => {
-    localStorage.setItem('XLmath-xp', xp.toString());
+    localStorage.setItem(STORAGE_KEYS.XP, xp.toString());
   }, [xp]);
 
   useEffect(() => {
-    localStorage.setItem('XLmath-maxXp', maxXp.toString());
+    localStorage.setItem(STORAGE_KEYS.MAX_XP, maxXp.toString());
   }, [maxXp]);
 
   const handleOperatorChange = (newOperator: string) => {

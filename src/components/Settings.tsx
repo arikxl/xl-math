@@ -1,62 +1,40 @@
 import React, { useState } from 'react'
-import { themes, type ColorTheme } from '../themes';
-import { STORAGE_KEY } from '../pages/Intro';
-
-import "../styles/global.css";
-import "../styles/quiz.css";
-import "../styles/intro.css";
+import { themes } from '../themes';
+import { useTheme } from '../service/useTheme';
+import { STORAGE_KEYS } from '../service/constants';
 
 
 interface SettingsProps {
     setChildName: React.Dispatch<React.SetStateAction<string>>;
-
     setShowSettingsModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 
 const Settings = ({ setShowSettingsModal, setChildName }: SettingsProps) => {
-    const [localName, setLocalName] = useState(localStorage.getItem('XLmath-child'));
+    const [localName, setLocalName] = useState(localStorage.getItem(STORAGE_KEYS.CHILD_NAME));
 
-    const [currentThemeKey, setCurrentThemeKey] = useState<string | null>(() => {
-        return localStorage.getItem(STORAGE_KEY);
-
-
-    });
+    const { currentThemeKey, setCurrentThemeKey } = useTheme();
 
     const handleStart = () => {
         const trimmedName = localName?.trim();
         if (trimmedName) {
             setChildName(trimmedName)
-            localStorage.setItem('XLmath-child', trimmedName);
+            localStorage.setItem(STORAGE_KEYS.CHILD_NAME, trimmedName);
         }
 
         setShowSettingsModal(false)
     };
 
     const selectTheme = (themeKey: string) => {
-        if (themes[themeKey]) {
-            setCurrentThemeKey(themeKey);
-        }
-
-        const theme: ColorTheme = themes[themeKey];
-        const root = document.documentElement;
-
-        root.style.setProperty('--color-primary', theme.primary);
-        root.style.setProperty('--color-secondary', theme.secondary);
-        root.style.setProperty('--color-accent', theme.accent);
-        root.style.setProperty('--color-text-bg', theme.textBg);
-
-        localStorage.setItem(STORAGE_KEY, themeKey);
+        setCurrentThemeKey(themeKey);
     };
-
 
     const resetAll = () => {
         if (window.confirm('האם אתם בטוחים שאתם רוצים למחוק את כל ההתקדמות?')) {
-
-            localStorage.removeItem('XLmath-child');
-            localStorage.removeItem('XLmath-xp');
-            localStorage.removeItem('color-theme');
-            localStorage.removeItem('XLmath-maxXp');
+            localStorage.removeItem(STORAGE_KEYS.CHILD_NAME);
+            localStorage.removeItem(STORAGE_KEYS.XP);
+            localStorage.removeItem(STORAGE_KEYS.THEME);
+            localStorage.removeItem(STORAGE_KEYS.MAX_XP);
             setShowSettingsModal(false);
             window.location.reload();
         }
@@ -93,11 +71,8 @@ const Settings = ({ setShowSettingsModal, setChildName }: SettingsProps) => {
                     })}
                 </div>
 
-                {/* 
-                <h2>כל הכבוד { }!</h2>
-                <p className="prize-instruction">גשו לאמא/אבא לקבלת הפרס</p> */}
+                
                 <button className='settings-btn' onClick={handleStart}>אישור וחזרה למשחק</button>
-
 
                 <hr />
                 <p>תרגיל חיבור: נקודה אחת</p>
