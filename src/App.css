@@ -303,8 +303,6 @@ li {
 }
 
 
-
-
 .answers {
   gap: 10px;
   display: flex;
@@ -325,7 +323,6 @@ li {
   cursor: pointer;
   color: white;
   transition: 1s;
-  /* background-color: #fe4a49; */
 }
 
 .answer:nth-child(1) {
@@ -346,8 +343,6 @@ li {
       var(--color-secondary),
       var(--color-accent));
 }
-
-
 
 .answer {
   transition: background-color 0.3s ease, opacity 0.3s ease;
@@ -416,7 +411,6 @@ li {
 
 
 
-/* מסך כהה מאחורי המודל */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -424,16 +418,13 @@ li {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
-  /* שחור חצי שקוף */
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  /* שיהיה מעל הכל */
   animation: fadeIn 0.3s;
 }
 
-/* הקופסה הלבנה של ההודעה */
 .modal-content {
   background-color: white;
   padding: 2rem;
@@ -443,7 +434,6 @@ li {
   width: 400px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  /* אפקט קפיצה נחמד */
 }
 
 .modal-icon {

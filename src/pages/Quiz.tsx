@@ -4,6 +4,10 @@ import QuizFooter from '../components/QuizFooter';
 import { prizeXP } from '../service/data';
 import Settings from '../components/Settings';
 
+
+import "../styles/quiz.css";
+
+
 interface QuizProps {
   childName: string;
     setChildName: React.Dispatch<React.SetStateAction<string>>;

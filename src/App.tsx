@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import './App.css'
+import "./styles/global.css";
 import Quiz from './pages/Quiz';
 import Intro from './pages/Intro';
 import { themes, type ColorTheme } from './themes';

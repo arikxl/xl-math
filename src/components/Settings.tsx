@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import { themes, type ColorTheme } from '../themes';
 import { STORAGE_KEY } from '../pages/Intro';
 
+import "../styles/global.css";
+import "../styles/quiz.css";
+import "../styles/intro.css";
+
 
 interface SettingsProps {
     setChildName: React.Dispatch<React.SetStateAction<string>>;
@@ -61,7 +65,6 @@ const Settings = ({ setShowSettingsModal, setChildName }: SettingsProps) => {
     return (
         <div className="modal-overlay ">
             <div className="modal-content no-pad">
-                <div className="modal-icon"></div>
                 <input placeholder='שינוי שם הילד/ה'
                     value={localName ? localName : ''}
                     onChange={(e) => setLocalName(e.target.value)}

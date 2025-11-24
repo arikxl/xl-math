@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'; // 1. לא לשכוח להוסיף useEffect
 import { themes, type ColorTheme } from '../themes';
 
+import "../styles/intro.css";
+
 interface IntroProps {
     setChildName: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -12,12 +14,10 @@ const Intro: React.FC<IntroProps> = ({ setChildName }) => {
     const [localName, setLocalName] = useState('');
     const [isAgreed, setIsAgreed] = useState(false);
 
-    // טעינת המפתח מהזיכרון
     const [currentThemeKey, setCurrentThemeKey] = useState<string | null>(() => {
         return localStorage.getItem(STORAGE_KEY);
     });
 
-    // 2. התיקון הגדול: אפקט שמעדכן את ה-CSS בכל פעם שה-Theme משתנה (וגם בהתחלה)
     useEffect(() => {
         if (currentThemeKey && themes[currentThemeKey]) {
             const theme: ColorTheme = themes[currentThemeKey];
@@ -28,7 +28,6 @@ const Intro: React.FC<IntroProps> = ({ setChildName }) => {
             root.style.setProperty('--color-accent', theme.accent);
             root.style.setProperty('--color-text-bg', theme.textBg);
 
-            // עדכון הזיכרון (כדי שיהיה מסודר, גם אם בחרנו מחדש)
             localStorage.setItem(STORAGE_KEY, currentThemeKey);
         }
     }, [currentThemeKey]);
@@ -42,11 +41,9 @@ const Intro: React.FC<IntroProps> = ({ setChildName }) => {
         }
     };
 
-    // 3. הפונקציה הזו הופכת להיות הרבה יותר פשוטה - רק מעדכנת את ה-State
     const selectTheme = (themeKey: string) => {
         if (themes[themeKey]) {
             setCurrentThemeKey(themeKey);
-            // ה-useEffect למעלה כבר יעשה את שאר העבודה (עדכון CSS + שמירה בזיכרון)
         }
     };
 
@@ -77,7 +74,6 @@ const Intro: React.FC<IntroProps> = ({ setChildName }) => {
                                 className={`color-set-btn ${theme.gradientType}`}
                                 key={themeKey}
                                 onClick={() => selectTheme(themeKey)}
-                                // הוספתי סימון ויזואלי לכפתור הנבחר
                                 style={{
                                     '--btn-primary': theme.primary,
                                     '--btn-secondary': theme.secondary,

@@ -1,0 +1,83 @@
+.intro {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    font-family: "Heebo", sans-serif;
+}
+
+.intro h1 {
+    font-size: 70px;
+    margin-bottom: -30px;
+}
+
+.intro h1 span {
+    font-family: "Luckiest Guy", cursive;
+    letter-spacing: 4px;
+    color: var(--color-accent);
+}
+
+.intro h1 span span {
+    font-size: 50px;
+    font-weight: normal;
+}
+
+.intro input{
+    font-family: "Heebo", sans-serif;
+}
+
+.intro h3 {
+    font-weight: 500;
+    font-size: 24px;
+    margin: 0;
+}
+
+.intro-btn {
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    width: 80%;
+    margin: 0 auto;
+    padding: 10px;
+    font-size: 24px;
+    display: block;
+    background-color: var(--color-primary);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.intro-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.intro-btn:not(:disabled):hover {
+    background-color: var(--color-accent);
+}
+
+.checkbox-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    padding: 5px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+    margin-top: 5px;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.checkbox-text {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+}

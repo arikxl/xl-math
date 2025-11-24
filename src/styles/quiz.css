@@ -1,0 +1,364 @@
+nav {
+    display: flex;
+    max-width: 400px;
+    align-items: center;
+    margin: auto;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+header {
+    background-color: var(--color-text-bg);
+    width: 100dvw;
+    padding: 10px;
+    color: white;
+
+}
+
+nav h2,
+.quiz-footer h2 span {
+    font-family: "Luckiest Guy", cursive;
+    color: var(--color-secondary);
+    font-weight: 500;
+}
+
+nav h2 span,
+.quiz-footer h2 {
+    font-family: "Luckiest Guy", cursive;
+    color: white;
+    margin-left: 4px;
+    font-weight: 200;
+}
+
+nav button {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+}
+
+.quiz-footer {
+    padding: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: white;
+    flex-direction: column;
+}
+
+.footer-text {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.operators {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    gap: 5px;
+    flex-direction: row-reverse;
+}
+
+li {
+    font-family: "Luckiest Guy", cursive;
+    flex: 1;
+    background-color: gray;
+    color: white;
+    text-align: center;
+    font-size: 35px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.q-and-a {
+    height: 100%;
+}
+
+.question {
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row-reverse;
+    font-size: 50px;
+}
+
+.question h3 {
+    font-family: "Luckiest Guy", cursive;
+    letter-spacing: 4px;
+    font-weight: 100;
+}
+
+.question h3:nth-child(5) {
+    color: gray;
+}
+
+.answers {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    margin: 0 auto 10px;
+}
+
+.answer {
+    font-family: "Luckiest Guy", cursive;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1/1;
+    font-size: 50px;
+    cursor: pointer;
+    color: white;
+    transition: 1s;
+}
+
+.answer:nth-child(1) {
+    background-color: var(--color-primary);
+}
+
+.answer:nth-child(2) {
+    background-color: var(--color-accent);
+}
+
+.answer:nth-child(3) {
+    background-color: var(--color-secondary);
+}
+
+.active {
+    background: radial-gradient(circle, var(--color-primary), var(--color-secondary), var(--color-accent));
+}
+
+
+
+.answer {
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.answer.correct {
+    background-color: #4CAF50;
+    color: white;
+    transform: scale(1.05);
+}
+
+.answer.wrong {
+    background-color: #F44336;
+    color: white;
+    animation: shake 0.5s ease;
+}
+
+.answer.faded {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+
+    75% {
+        transform: translateX(-5px);
+    }
+}
+
+.progress-container {
+    width: 90%;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 12px 0 0 12px;
+}
+
+/* מודאל */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 90%;
+    width: 400px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    
+}
+
+.modal-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.modal-content h2 {
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+}
+
+.prize-instruction {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+    margin: 1.5rem 0;
+}
+
+.modal-content button {
+    color: var(--color-secondary);
+    background-color: var(--color-text-bg);
+    border: none;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.modal-content button:hover {
+    background-color: var(--color-accent);
+    transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.settings-btn {
+    width: 80%;
+    background-color: var(--color-primary) !important;
+    /* margin-bottom: 10px; */
+}
+
+.settings-btn:last-child {
+    background-color: var(--color-text-bg) !important;
+}
+
+
+hr {
+    margin: 20px auto;
+}
+
+
+.color-set-btn {
+
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background: linear-gradient(135deg, var(--btn-primary), var(--btn-secondary), var(--btn-accent));
+    border-radius: 0 !important;
+    border: none;
+    width: 80%;
+    aspect-ratio: 16/3;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.color-set-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.color-set-btn.radial {
+    background: radial-gradient(circle, var(--btn-primary), var(--btn-secondary), var(--btn-accent));
+}
+.color-set-btn.linear-right {
+    background: linear-gradient(90deg, var(--btn-primary), var(--btn-secondary), var(--btn-accent));
+}
+
+.modal-content h3 {
+    font-family: "Heebo", sans-serif;
+    color: var(--color-text-bg);
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.modal-content input {
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
+    background: transparent;
+    width: 100%;
+    max-width: 250px;
+    font-size: 24px;
+    margin: 0;
+}
+
+.modal-content input:focus {
+    outline: none;
+    border-bottom: 2px solid var(--color-accent);
+}
+
+.modal-content p {
+    font-size: 16px;
+    color: #555;
+}
+
+.modal-content.no-pad {
+    padding: 24px;
+}
+
+/* התאמת קו מפריד */
+.modal-content hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 15px 0;
+}
+
+.modal-content h3{
+    font-size: 20px;
+}

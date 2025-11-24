@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&display=swap');
+
+:root {
+    --blue: #2ab7ca;
+    --red: #fe4a49;
+    --yellow: #fed766;
+    /* ...כל שאר משתני צבע וכו'... */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Heebo", sans-serif;
+}
+
+button {
+    cursor: pointer;
+}
+
+body {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    direction: rtl;
+    overflow: hidden;
+    font-family: "Heebo", sans-serif;
+    color: rgb(20, 20, 20);
+}
+
+main {
+    height: 100dvh;
+    background-color: azure;
+}
+
+section {
+    max-width: 400px;
+    background-color: azure;
+    margin: auto;
+    height: 100%;
+    text-align: center;
+    overflow: hidden;
+}
+
+input {
+    font-size: 30px;
+    text-align: center;
+    border: none;
+    width: 80%;
+    margin: 10px auto;
+    background-color: transparent;
+    border-bottom: solid 2px silver;
+    color: var(--color-secondary);
+    font-weight: bold;
+}
+
+footer {
+    width: 100dvw;
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
+    color: var(--color-secondary);
+    background-color: var(--color-text-bg);
+    margin-top: 20px;
+}
+
+footer a,
+.intro a {
+    color: inherit;
+}
+
+footer a:hover {
+    color: white;
+}
+
+hr {
+    margin: 20px;
+}
