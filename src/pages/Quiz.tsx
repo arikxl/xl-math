@@ -124,7 +124,9 @@ const Quiz: React.FC<QuizProps> = ({ childName, setChildName }) => {
             <h2>כל הכבוד {childName}!</h2>
             <p>הגעת ליעד חדש! 🎉</p>
             <p className="prize-instruction">גשו לאמא או לאבא לקבל את הפרס</p>
-            <button onClick={() => setShowPrizeModal(false)}>לא לשכוח להגיד תודה</button>
+            <button
+              aria-label="אישור"
+              onClick={() => setShowPrizeModal(false)}>לא לשכוח להגיד תודה</button>
           </div>
         </div>
       )}
@@ -135,7 +137,9 @@ const Quiz: React.FC<QuizProps> = ({ childName, setChildName }) => {
 
       <header>
         <nav>
-          <button onClick={() => setShowSettingsModal(true)}>⚙️</button>
+          <button
+            aria-label="הגדרות Settings"
+            onClick={() => setShowSettingsModal(true)}>⚙️</button>
           <h1>{childName}</h1>
           <h2>{xp}<span>XP</span></h2>
         </nav>

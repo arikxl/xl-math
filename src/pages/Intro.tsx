@@ -71,6 +71,7 @@ const Intro: React.FC<IntroProps> = ({ setChildName }) => {
                             <button
                                 className={`color-set-btn ${theme.gradientType}`}
                                 key={themeKey}
+                                aria-label="Change color theme"
                                 onClick={() => selectTheme(themeKey)}
                                 style={{
                                     '--btn-primary': theme.primary,
@@ -95,6 +96,7 @@ const Intro: React.FC<IntroProps> = ({ setChildName }) => {
 
                 <button className='intro-btn'
                     onClick={handleStart}
+                    aria-label="התחלה Start"
                     disabled={!currentThemeKey || localName.trim() === '' || !isAgreed}>
                     בואו נתחיל
                 </button>

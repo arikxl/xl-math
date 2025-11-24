@@ -57,6 +57,7 @@ const Settings = ({ setShowSettingsModal, setChildName }: SettingsProps) => {
                             <button
                                 className={`color-set-btn ${theme.gradientType}`}
                                 key={themeKey}
+                                aria-label="Change color theme"
                                 onClick={() => selectTheme(themeKey)}
                                 disabled={currentThemeKey === themeKey}
                                 style={{
@@ -72,7 +73,9 @@ const Settings = ({ setShowSettingsModal, setChildName }: SettingsProps) => {
                 </div>
 
                 
-                <button className='settings-btn' onClick={handleStart}>אישור וחזרה למשחק</button>
+                <button className='settings-btn'
+                    aria-label="אישור"
+                    onClick={handleStart}>אישור וחזרה למשחק</button>
 
                 <hr />
                 <p>תרגיל חיבור: נקודה אחת</p>
@@ -84,7 +87,9 @@ const Settings = ({ setShowSettingsModal, setChildName }: SettingsProps) => {
                 <hr />
        
                 <p>אם אתם רוצים להתחיל את הכל מההתחלה ושכל המידע ימחק, תלחצו כאן:</p>
-                <button className='settings-btn' onClick={resetAll}>איפוס מוחלט</button>
+                <button className='settings-btn'
+                    aria-label="reset איפוס"
+                    onClick={resetAll}>איפוס מוחלט</button>
             </div>
         </div>
     )
