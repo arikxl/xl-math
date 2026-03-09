@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 
 import Settings from '../components/Settings';
 import QuizFooter from '../components/QuizFooter';
@@ -6,13 +6,11 @@ import { prizeXP } from '../service/data';
 import { STORAGE_KEYS } from '../service/constants';
 import { createNewQuizQuestion, type QuizData } from '../service/createEx';
 
-
 import "../styles/quiz.css";
-
 
 interface QuizProps {
   childName: string;
-    setChildName: React.Dispatch<React.SetStateAction<string>>;
+  setChildName: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const operators = ['+', '-', 'x', '÷'];
@@ -60,7 +58,6 @@ const Quiz: React.FC<QuizProps> = ({ childName, setChildName }) => {
   const handleOperatorChange = (newOperator: string) => {
     setQuiz(createNewQuizQuestion(newOperator));
   };
-  
 
   const handleAnswerClick = (selectedAnswer: number) => {
     if (isAnswering) return;
@@ -68,36 +65,27 @@ const Quiz: React.FC<QuizProps> = ({ childName, setChildName }) => {
 
     if (selectedAnswer === quiz.result) {
       const pointsToAdd = CORRECT_ANSWER_POINTS[quiz.operator] || 1;
-
-      // חישוב העתיד - כמה נקודות יהיו לי עכשיו
       const newXp = xp + pointsToAdd;
 
-      // התיקון: בדיקה האם חצינו פרס, והאם הפרס הזה חדש לנו (גדול מהשיא הקודם)
       const reachedNewPrize = prizeXP.some(prize =>
-        xp < prize &&       // היינו מתחת לפרס
-        newXp >= prize &&   // עכשיו עברנו אותו
-        prize > maxXp       // וחשוב מאוד: הפרס הזה נמצא מעל השיא הקודם שלנו
+        xp < prize &&
+        newXp >= prize &&
+        prize > maxXp
       );
 
       if (reachedNewPrize) {
         setShowPrizeModal(true);
       }
 
-      // עדכון הניקוד
       setXp(newXp);
 
-      // עדכון השיא המקסימלי אם שברנו אותו
       if (newXp > maxXp) {
         setMaxXp(newXp);
       }
 
     } else {
-      // תשובה לא נכונה
       setXp(prevXp => Math.max(0, prevXp - WRONG_ANSWER_PENALTY));
       setClickedWrongAnswer(selectedAnswer);
-
-      // שים לב: אנחנו לא מורידים את ה-maxXp! 
-      // השיא נשאר כדי למנוע קבלת פרס כפולה אם הילד יורד ועולה חזרה
     }
 
     setTimeout(() => {
@@ -130,10 +118,10 @@ const Quiz: React.FC<QuizProps> = ({ childName, setChildName }) => {
           </div>
         </div>
       )}
-      {showSettingsModal && (
-        <Settings setChildName={setChildName } setShowSettingsModal={setShowSettingsModal } />
-      )}
 
+      {showSettingsModal && (
+        <Settings setChildName={setChildName} setShowSettingsModal={setShowSettingsModal} />
+      )}
 
       <header>
         <nav>
@@ -180,7 +168,7 @@ const Quiz: React.FC<QuizProps> = ({ childName, setChildName }) => {
       <QuizFooter xp={xp} maxXp={maxXp} />
 
     </main>
-  )
+  );
 }
 
 export default Quiz;
