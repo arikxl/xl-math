@@ -3,7 +3,7 @@
     "short_name": "XLmath",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "azure",
+    "background_color": "#f0ffff",
     "theme_color": "#000000",
     "icons": [
         {
